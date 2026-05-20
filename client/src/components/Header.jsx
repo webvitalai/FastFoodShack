@@ -48,15 +48,16 @@ const Header = () => {
           top:0;
           left:0;
           z-index:9999;
-          padding:14px 0;
+          padding:12px 0;
           transition:.35s ease;
           background:rgba(255,247,237,.78);
           backdrop-filter:blur(16px);
+          -webkit-backdrop-filter:blur(16px);
           border-bottom:1px solid rgba(229,9,20,.08);
         }
 
         .hb-navbar.scrolled{
-          padding:9px 0;
+          padding:8px 0;
           background:rgba(255,247,237,.96);
           border-bottom:1px solid rgba(229,9,20,.16);
           box-shadow:0 18px 45px rgba(18,7,7,.12);
@@ -73,13 +74,14 @@ const Header = () => {
         .hb-brand{
           display:flex;
           align-items:center;
-          gap:12px;
+          gap:7px;
           text-decoration:none;
           color:var(--hb-black) !important;
           font-size:clamp(20px,2.1vw,30px);
           font-weight:950;
           letter-spacing:-1px;
           white-space:nowrap;
+          min-width:0;
         }
 
         .hb-brand span{
@@ -89,33 +91,43 @@ const Header = () => {
         }
 
         .hb-logo{
-          width:54px;
-          height:54px;
-          min-width:54px;
-          border-radius:18px;
-          display:grid;
-          place-items:center;
-          position:relative;
-          overflow:hidden;
-          color:white;
-          font-size:25px;
-          background:linear-gradient(135deg,var(--hb-red),var(--hb-red-dark),var(--hb-yellow));
-          box-shadow:0 18px 45px rgba(229,9,20,.32);
-          animation:hbPulse 3s infinite ease-in-out;
+          width:82px;
+          height:70px;
+          min-width:82px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          background:transparent !important;
+          border:none !important;
+          box-shadow:none !important;
+          border-radius:0 !important;
+          overflow:visible;
+          flex-shrink:0;
         }
 
-        .hb-logo::before{
-          content:"";
-          position:absolute;
-          inset:-45%;
-          background:linear-gradient(120deg,transparent,rgba(255,255,255,.58),transparent);
-          transform:translateX(-120%) rotate(20deg);
-          animation:hbShine 4s infinite linear;
+        .hb-logo-img{
+          width:100%;
+          height:100%;
+          object-fit:contain;
+          display:block;
+          background:transparent !important;
+          border:none !important;
+          box-shadow:none !important;
+          filter:
+            brightness(1.08)
+            contrast(1.16)
+            saturate(1.12)
+            drop-shadow(0 5px 10px rgba(229,9,20,.22));
+          transition:.35s ease;
         }
 
-        .hb-logo i{
-          position:relative;
-          z-index:2;
+        .hb-brand:hover .hb-logo-img{
+          transform:scale(1.06);
+        }
+
+        .hb-brand-text{
+          margin-left:-3px;
+          line-height:1;
         }
 
         .hb-desktop-area{
@@ -135,6 +147,7 @@ const Header = () => {
           background:rgba(255,255,255,.74);
           border:1px solid rgba(229,9,20,.14);
           backdrop-filter:blur(18px);
+          -webkit-backdrop-filter:blur(18px);
           box-shadow:0 14px 38px rgba(18,7,7,.06);
         }
 
@@ -251,28 +264,15 @@ const Header = () => {
           margin-top:24px;
         }
 
-        @keyframes hbPulse{
-          0%,100%{transform:scale(1) rotate(0deg);}
-          50%{transform:scale(1.05) rotate(-4deg);}
-        }
-
-        @keyframes hbShine{
-          0%{transform:translateX(-120%) rotate(20deg);}
-          55%{transform:translateX(120%) rotate(20deg);}
-          100%{transform:translateX(120%) rotate(20deg);}
-        }
-
         @media(max-width:1199px){
           .hb-brand{
             font-size:24px;
           }
 
           .hb-logo{
-            width:48px;
-            height:48px;
-            min-width:48px;
-            font-size:22px;
-            border-radius:16px;
+            width:76px;
+            height:66px;
+            min-width:76px;
           }
 
           .hb-nav-link{
@@ -291,7 +291,7 @@ const Header = () => {
 
         @media(max-width:991px){
           .hb-navbar{
-            padding:10px 0;
+            padding:9px 0;
             background:rgba(255,247,237,.96);
             box-shadow:0 16px 40px rgba(18,7,7,.08);
           }
@@ -303,22 +303,24 @@ const Header = () => {
 
         @media(max-width:575px){
           .hb-navbar{
-            padding:8px 0;
+            padding:7px 0;
           }
 
           .hb-brand{
             font-size:20px;
-            gap:9px;
+            gap:5px;
             max-width:calc(100vw - 95px);
             overflow:hidden;
           }
 
           .hb-logo{
-            width:42px;
-            height:42px;
-            min-width:42px;
-            font-size:20px;
-            border-radius:14px;
+            width:62px;
+            height:54px;
+            min-width:62px;
+          }
+
+          .hb-brand-text{
+            margin-left:-2px;
           }
 
           .hb-toggle{
@@ -340,9 +342,9 @@ const Header = () => {
           }
 
           .hb-logo{
-            width:39px;
-            height:39px;
-            min-width:39px;
+            width:56px;
+            height:50px;
+            min-width:56px;
           }
         }
       `}</style>
@@ -352,9 +354,16 @@ const Header = () => {
           <div className="hb-nav-wrap">
             <Navbar.Brand as={NavLink} to="/" className="hb-brand" onClick={() => setShow(false)}>
               <div className="hb-logo">
-                <i className="bi bi-fire"></i>
+                <img
+                  src="/Images/Logo.png"
+                  alt="Fast Food Shack Logo"
+                  className="hb-logo-img"
+                />
               </div>
-              Fast Food<span>Shack</span>
+
+              <div className="hb-brand-text">
+                Fast Food<span>Shack</span>
+              </div>
             </Navbar.Brand>
 
             <div className="hb-desktop-area">
@@ -374,7 +383,12 @@ const Header = () => {
               </Button>
             </div>
 
-            <button className="hb-toggle d-lg-none" type="button" onClick={() => setShow(true)}>
+            <button
+              className="hb-toggle d-lg-none"
+              type="button"
+              onClick={() => setShow(true)}
+              aria-label="Open menu"
+            >
               <i className="bi bi-list"></i>
             </button>
           </div>
@@ -383,9 +397,16 @@ const Header = () => {
             <Offcanvas.Header closeButton>
               <Offcanvas.Title className="hb-brand">
                 <div className="hb-logo">
-                  <i className="bi bi-fire"></i>
+                  <img
+                    src="/Images/Logo.png"
+                    alt="Fast Food Shack Logo"
+                    className="hb-logo-img"
+                  />
                 </div>
-                Fast Food<span>Shack</span>
+
+                <div className="hb-brand-text">
+                  Fast Food<span>Shack</span>
+                </div>
               </Offcanvas.Title>
             </Offcanvas.Header>
 

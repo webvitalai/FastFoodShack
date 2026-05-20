@@ -70,36 +70,44 @@ const Footer = () => {
         .hb-brand {
           display: flex;
           align-items: center;
-          gap: 15px;
+          gap: 7px;
           margin-bottom: 24px;
+          max-width: 100%;
         }
 
-        .hb-brand-icon {
-          width: 64px;
-          height: 64px;
-          border-radius: 20px;
-          display: grid;
-          place-items: center;
-          font-size: 28px;
-          color: white;
-          background: linear-gradient(135deg, var(--hb-red), var(--hb-red-dark), var(--hb-yellow));
-          box-shadow: 0 22px 55px rgba(229,9,20,.32);
-          position: relative;
-          overflow: hidden;
+        .hb-brand-logo {
+          width: 86px;
+          height: 74px;
+          min-width: 86px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: transparent !important;
+          border: none !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+          overflow: visible;
+          flex-shrink: 0;
         }
 
-        .hb-brand-icon::after {
-          content: "";
-          position: absolute;
-          inset: -40%;
-          background: linear-gradient(120deg, transparent, rgba(255,255,255,.65), transparent);
-          transform: translateX(-120%) rotate(20deg);
-          animation: shine 4s infinite;
+        .hb-brand-logo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+          background: transparent !important;
+          border: none !important;
+          box-shadow: none !important;
+          filter:
+            brightness(1.08)
+            contrast(1.16)
+            saturate(1.12)
+            drop-shadow(0 5px 10px rgba(229,9,20,.22));
+          transition: .35s ease;
         }
 
-        .hb-brand-icon i {
-          position: relative;
-          z-index: 2;
+        .hb-brand:hover .hb-brand-logo-img {
+          transform: scale(1.06);
         }
 
         .hb-brand-text {
@@ -108,6 +116,7 @@ const Footer = () => {
           color: var(--hb-black);
           line-height: 1;
           letter-spacing: -1px;
+          margin-left: -3px;
         }
 
         .hb-brand-text span {
@@ -360,14 +369,19 @@ const Footer = () => {
           font-size: 18px;
         }
 
-        @keyframes shine {
-          0% { transform: translateX(-120%) rotate(20deg); }
-          45%,100% { transform: translateX(120%) rotate(20deg); }
-        }
-
         @media (max-width: 1100px) {
           .hb-top {
             grid-template-columns: repeat(2,1fr);
+          }
+
+          .hb-brand-logo {
+            width: 78px;
+            height: 68px;
+            min-width: 78px;
+          }
+
+          .hb-brand-text {
+            font-size: 34px;
           }
         }
 
@@ -381,8 +395,19 @@ const Footer = () => {
             gap: 45px;
           }
 
+          .hb-brand {
+            gap: 5px;
+          }
+
+          .hb-brand-logo {
+            width: 66px;
+            height: 58px;
+            min-width: 66px;
+          }
+
           .hb-brand-text {
-            font-size: 32px;
+            font-size: 30px;
+            margin-left: -2px;
           }
 
           .hb-bottom {
@@ -394,6 +419,18 @@ const Footer = () => {
             justify-content: center;
           }
         }
+
+        @media (max-width: 390px) {
+          .hb-brand-logo {
+            width: 58px;
+            height: 52px;
+            min-width: 58px;
+          }
+
+          .hb-brand-text {
+            font-size: 25px;
+          }
+        }
       `}</style>
 
       <footer className="hb-footer">
@@ -401,8 +438,12 @@ const Footer = () => {
           <div className="hb-top">
             <div>
               <div className="hb-brand">
-                <div className="hb-brand-icon">
-                  <i className="bi bi-fire"></i>
+                <div className="hb-brand-logo">
+                  <img
+                    src="/Images/Logo.png"
+                    alt="Fast Food Shack Logo"
+                    className="hb-brand-logo-img"
+                  />
                 </div>
 
                 <div className="hb-brand-text">
@@ -419,16 +460,16 @@ const Footer = () => {
               </p>
 
               <div className="hb-socials">
-                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">
+                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
                   <i className="bi bi-instagram"></i>
                 </a>
-                <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
+                <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">
                   <i className="bi bi-facebook"></i>
                 </a>
-                <a href="https://www.tiktok.com/" target="_blank" rel="noreferrer">
+                <a href="https://www.tiktok.com/" target="_blank" rel="noreferrer" aria-label="TikTok">
                   <i className="bi bi-tiktok"></i>
                 </a>
-                <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">
+                <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="YouTube">
                   <i className="bi bi-youtube"></i>
                 </a>
               </div>
@@ -496,7 +537,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <h6>Email</h6>
-                  <a href="mailto:info@kcfastfood.co.uk">
+                  <a href="mailto:info@fastfoodshack.co.uk">
                     info@fastfoodshack.co.uk
                   </a>
                 </div>
